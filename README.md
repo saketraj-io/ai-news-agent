@@ -44,8 +44,7 @@ streamlit run app.py
 
 ### Dashboard
 
-![AI News Agent Dashboard](screensorts/Screenshot 2026-06-03 001721.png)
-
+![AI News Agent Dashboard](screensorts/Screenshot%202026-06-03%20001721.png)
 ## Future Enhancements
 
 - Personalized news recommendations
