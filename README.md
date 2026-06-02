@@ -40,6 +40,11 @@ Run the application:
 streamlit run app.py
 ```
 
+## Screenshots
+
+### Dashboard
+
+![AI News Agent Dashboard](screensorts/dashboard.png)
 
 ## Future Enhancements
 
