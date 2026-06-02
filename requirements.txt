@@ -1,0 +1,42 @@
+# ──────────────────────────────────────────────
+# AI News Agent — Python Dependencies
+# ──────────────────────────────────────────────
+
+# Web UI
+streamlit>=1.35.0
+
+# Google Gemini LLM (new unified SDK — replaces deprecated google-generativeai)
+google-genai>=1.0.0
+
+# News fetching & scraping
+feedparser>=6.0.11             # RSS feed parser
+httpx>=0.27.0                  # HTTP client (GNews API calls)
+requests>=2.32.0               # Sync HTTP for newspaper4k + BS4 scraping
+
+# Article scraping
+newspaper4k>=0.9.3             # newspaper3k maintained fork (drop-in replacement)
+beautifulsoup4>=4.12.3         # HTML parsing fallback scraper
+lxml>=5.2.2                    # Fast BS4 parser backend
+cloudscraper>=1.2.71           # Bypasses Cloudflare-protected sites
+
+# Data handling
+pandas>=2.2.0
+python-dotenv>=1.0.1           # Load .env files
+
+# NLP / text processing
+tiktoken>=0.7.0                # Token counting (keep summaries in-budget)
+
+# Database
+# SQLite is built-in to Python — no extra package needed
+
+# Utilities
+loguru>=0.7.2                  # Structured logging
+tenacity>=8.3.0                # Retry logic for API calls
+python-dateutil>=2.9.0         # Robust date parsing
+
+# Optional: PDF export
+fpdf2>=2.7.9
+
+# Dev / testing
+pytest>=8.2.0
+pytest-mock>=3.14.0
