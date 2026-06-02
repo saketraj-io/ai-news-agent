@@ -248,12 +248,31 @@ class RSSClient:
 
             articles = []
             for entry in parsed.entries[:max_articles]:
-                # Extract the best available image
+                # Extract the best available image — check multiple fields
                 image_url = None
+                # 1. media:thumbnail (most common in news RSS)
                 if hasattr(entry, "media_thumbnail") and entry.media_thumbnail:
                     image_url = entry.media_thumbnail[0].get("url")
-                elif hasattr(entry, "media_content") and entry.media_content:
-                    image_url = entry.media_content[0].get("url")
+                # 2. media:content
+                if not image_url and hasattr(entry, "media_content") and entry.media_content:
+                    for m in entry.media_content:
+                        if m.get("url") and m.get("type", "").startswith("image"):
+                            image_url = m["url"]
+                            break
+                    if not image_url:
+                        image_url = entry.media_content[0].get("url")
+                # 3. enclosures (BBC Sport, Sky Sports, Reuters use this)
+                if not image_url and hasattr(entry, "enclosures") and entry.enclosures:
+                    for enc in entry.enclosures:
+                        if enc.get("type", "").startswith("image"):
+                            image_url = enc.get("href") or enc.get("url")
+                            break
+                # 4. link[rel=enclosure] in links list
+                if not image_url and hasattr(entry, "links"):
+                    for lnk in entry.links:
+                        if lnk.get("rel") == "enclosure" and "image" in lnk.get("type", ""):
+                            image_url = lnk.get("href")
+                            break
 
                 raw_content = getattr(entry, "summary", "") or getattr(entry, "description", "")
                 articles.append({

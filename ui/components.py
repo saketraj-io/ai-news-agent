@@ -99,12 +99,21 @@ def article_card_html(article: dict) -> str:
     icon    = TOPIC_ICONS.get(topic, "📰")
     grad    = TOPIC_GRADIENTS.get(topic, TOPIC_GRADIENTS["General"])
 
-    # Image section
+    # Ensure HTTPS — browsers block mixed-content HTTP images on HTTPS pages
+    if img_url and img_url.startswith("http://"):
+        img_url = "https://" + img_url[7:]
+
+    # Image section — referrerpolicy=no-referrer bypasses hotlink protection
+    # on most news CDNs. onerror swaps to the gradient fallback immediately.
     if img_url:
         img_html = (
             f'<img src="{html.escape(img_url)}" '
+            f'referrerpolicy="no-referrer" '
+            f'crossorigin="anonymous" '
+            f'loading="lazy" alt="" '
+            f'style="width:100%;height:100%;object-fit:cover;display:block;" '
             f'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';" '
-            f'loading="lazy" alt="" />'
+            f'/>'
             f'<div class="a-img-fallback" style="display:none;background:{grad}">{icon}</div>'
         )
     else:

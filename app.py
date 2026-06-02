@@ -141,9 +141,10 @@ def _fetch_topic(
     fetch_type: str,
     fetch_query: str,
     max_articles: int,
+    cache_version: int = 2,          # bump to bust stale cache
 ) -> list[dict]:
     """
-    Fetches and caches articles for a sidebar category (5-min TTL).
+    Fetches and caches articles for a nav-bar category (5-min TTL).
 
     fetch_type:
       "headlines" → NewsFetcher.get_top_headlines()
