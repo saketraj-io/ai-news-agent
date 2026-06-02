@@ -44,7 +44,7 @@ streamlit run app.py
 
 ### Dashboard
 
-![AI News Agent Dashboard](screensorts/dashboard.png)
+![AI News Agent Dashboard](screensorts/Screenshot 2026-06-03 001721.png)
 
 ## Future Enhancements
 
